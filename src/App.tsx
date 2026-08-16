@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { scenes, VIDEO_DURATION } from "./scenes";
 
 const repoUrl = "mailto:ynhl@cohl.com";
+const assetBase = import.meta.env.BASE_URL;
 
 // ── 八大服务详情数据 ──────────────────────────────────────────
 type ServiceDetail = {
@@ -284,8 +285,8 @@ export default function App() {
             <video
               ref={videoRef}
               className={ready && !failed ? "ready" : ""}
-              src="/media/scroll-story.mp4?v=1"
-              poster="/stills/scene-01.jpg"
+              src={`${assetBase}media/scroll-story.mp4?v=1`}
+              poster={`${assetBase}stills/scene-01.jpg`}
               preload="auto"
               muted
               playsInline
