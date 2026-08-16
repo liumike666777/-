@@ -1,0 +1,6 @@
+Scene 05 Key Visual Prompt:
+
+Same modern cityscape architectural style as the reference image but at magnificent sunset. A stunning modern city skyline bathed in warm golden-orange sunset light, the sky transitions from deep blue at top to warm amber and gold near the horizon, a wide river in the foreground reflecting the golden sunset colors, modern glass skyscrapers glowing with warm reflected light, lush green parks and tree-lined waterfront integrated into the urban landscape, sense of prosperity harmony and shared success, photorealistic architectural visualization, warm uplifting atmosphere, wide cinematic composition with empty sky on the left for text overlay, 16:9, no people, no text, no characters, no logos
+
+Model: gem-3.1 (image2.0 fallback)
+Reference: scene-01 anchor

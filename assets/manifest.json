@@ -1,0 +1,169 @@
+{
+  "project": "zhonghai-scroll-site",
+  "product": "中海物业增值服务",
+  "company": "中海物业集团有限公司",
+  "version": "1.0.0",
+  "created": "2026-08-15",
+  "assets": {
+    "images": [
+      {
+        "id": "scene-01-key",
+        "role": "anchor key visual + scene 1 poster",
+        "model": "gpt-image-2-medium",
+        "prompt_path": "assets/prompts/scene-01-key.txt",
+        "output_path": "assets/design/scene-01-key.jpg",
+        "status": "completed",
+        "references": [],
+        "review": "excellent - bright sky-blue palette, city panorama, lake reflection, golden hour lighting, left text-safe area"
+      },
+      {
+        "id": "scene-02-key",
+        "role": "scene 2 key visual + poster",
+        "model": "gem-3.1",
+        "prompt_path": "assets/prompts/scene-02-key.txt",
+        "output_path": "assets/design/scene-02-key.jpg",
+        "status": "completed",
+        "references": [
+          "scene-01-key"
+        ],
+        "review": "excellent - mixed-use district, four property types, consistent style"
+      },
+      {
+        "id": "scene-03-key",
+        "role": "scene 3 key visual + poster",
+        "model": "gem-3.1",
+        "prompt_path": "assets/prompts/scene-03-key.txt",
+        "output_path": "assets/design/scene-03-key.jpg",
+        "status": "completed",
+        "references": [
+          "scene-01-key"
+        ],
+        "review": "excellent - bright interior lobby, natural light, wood accents, left text-safe area"
+      },
+      {
+        "id": "scene-04-key",
+        "role": "scene 4 key visual + poster",
+        "model": "gem-3.1",
+        "prompt_path": "assets/prompts/scene-04-key.txt",
+        "output_path": "assets/design/scene-04-key.jpg",
+        "status": "completed",
+        "references": [
+          "scene-01-key"
+        ],
+        "review": "excellent - smart building exterior, warm golden light lines, glass facade, consistent style"
+      },
+      {
+        "id": "scene-05-key",
+        "role": "scene 5 key visual + poster",
+        "model": "gem-3.1",
+        "prompt_path": "assets/prompts/scene-05-key.txt",
+        "output_path": "assets/design/scene-05-key.jpg",
+        "status": "completed",
+        "references": [
+          "scene-01-key"
+        ],
+        "review": "excellent - sunset city panorama, warm golden-orange tones, lake reflection, bookends scene 01"
+      }
+    ],
+    "videos": [
+      {
+        "id": "scene-01-video",
+        "role": "scene 1 clip",
+        "model": "model-sd-fast (seedance2.0)",
+        "prompt_path": "assets/prompts/scene-01-video.txt",
+        "output_path": "assets/video/scenes/scene-01.mp4",
+        "status": "completed",
+        "task_id": "v86790608-68be826e-3319-4923-822e-fde1c1c25876",
+        "references": [
+          "scene-01-key"
+        ],
+        "duration": 10,
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "audio": false,
+        "review": "excellent - 1280x720, H.264, 24fps, 10.04s, seamless"
+      },
+      {
+        "id": "scene-02-video",
+        "role": "scene 2 clip",
+        "model": "model-sd-fast (seedance2.0)",
+        "prompt_path": "assets/prompts/scene-02-video.txt",
+        "output_path": "assets/video/scenes/scene-02.mp4",
+        "status": "completed",
+        "task_id": "v86790667-b2485342-6bfb-4472-8b8a-269294339928",
+        "references": [
+          "scene-02-key"
+        ],
+        "duration": 10,
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "audio": false,
+        "review": "excellent - 1280x720, H.264, 24fps, 10.04s, seamless"
+      },
+      {
+        "id": "scene-03-video",
+        "role": "scene 3 clip",
+        "model": "model-sd-fast (seedance2.0)",
+        "prompt_path": "assets/prompts/scene-03-video.txt",
+        "output_path": "assets/video/scenes/scene-03.mp4",
+        "status": "completed",
+        "task_id": "v86790742-c8f9d6ec-c8ad-47c0-b723-d1cb4510651a",
+        "references": [
+          "scene-03-key"
+        ],
+        "duration": 10,
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "audio": false,
+        "review": "excellent - 1280x720, H.264, 24fps, 10.04s, seamless"
+      },
+      {
+        "id": "scene-04-video",
+        "role": "scene 4 clip",
+        "model": "model-sd-fast (seedance2.0)",
+        "prompt_path": "assets/prompts/scene-04-video.txt",
+        "output_path": "assets/video/scenes/scene-04.mp4",
+        "status": "completed",
+        "task_id": "v86790797-40e5af30-9095-4648-a79a-25d32c1923fb",
+        "references": [
+          "scene-04-key"
+        ],
+        "duration": 10,
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "audio": false,
+        "review": "excellent - 1280x720, H.264, 24fps, 10.04s, seamless"
+      },
+      {
+        "id": "scene-05-video",
+        "role": "scene 5 clip",
+        "model": "model-sd-fast (seedance2.0)",
+        "prompt_path": "assets/prompts/scene-05-video.txt",
+        "output_path": "assets/video/scenes/scene-05.mp4",
+        "status": "completed",
+        "task_id": "v86790871-576fb4e2-8e54-411b-81b9-464cb26705a2",
+        "references": [
+          "scene-05-key"
+        ],
+        "duration": 10,
+        "resolution": "720p",
+        "aspect_ratio": "16:9",
+        "audio": false,
+        "review": "excellent - 1280x720, H.264, 24fps, 10.04s, seamless"
+      }
+    ],
+    "web_video": {
+      "id": "scroll-story",
+      "role": "final web video for scroll-scrubbing",
+      "codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "fps": 24,
+      "duration": 50.38,
+      "gop": 1,
+      "all_i_frames": true,
+      "output_path": "public/media/scroll-story.mp4",
+      "size_bytes": 76400123
+    }
+  }
+}

@@ -1,0 +1,15 @@
+Scene 03 Video Prompt (Seedance 2.0) — 1080P UPGRADE:
+
+Use the supplied image as the exact first-frame visual reference. Preserve the bright interior lobby, floor-to-ceiling windows, white walls, light wood accents, green plants, natural sunlight, and open professional atmosphere.
+
+Generate a 10-second, 16:9, 1080p, silent, single-continuous-shot video.
+
+0.0–4.0s: Camera slowly pans right, revealing the service counter area, information display zone, and green plant areas. Blue sky visible through the large windows.
+4.0–7.0s: Camera continues panning right, showing more service space details. Natural light creates warm reflections on wood and white surfaces.
+7.0–10.0s: Camera settles into a stable shot showing the complete service space, open and professional atmosphere, preparing for the next scene.
+
+Camera: smooth horizontal pan to the right at stable height, continuous movement.
+
+Keep exactly one interior space. Do not add, duplicate, remove, or mutate it.
+No cuts, reverse camera movement, random text, subtitles, logos, watermark, extra limbs, duplicated subjects, explosions, dark cyberpunk styling, or complex HUD.
+No people. No text. No characters.

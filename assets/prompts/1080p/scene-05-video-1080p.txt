@@ -1,0 +1,16 @@
+Scene 05 Video Prompt (Seedance 2.0) — 1080P UPGRADE:
+
+Use the supplied image as the exact first-frame visual reference. Preserve the modern city skyline, sunset sky transitioning from deep blue to golden amber, wide river reflecting golden sunset, glass skyscrapers glowing with warm light, lush green parks, sense of prosperity and harmony.
+
+Generate a 10-second, 16:9, 1080p, silent, single-continuous-shot video.
+
+0.0–4.0s: Camera slowly dollies forward from a wide city sunset panorama toward a medium shot. Sky colors transition from bright blue to golden. Lake water ripples reflecting the sunset. Building glass reflects warm golden light.
+4.0–7.0s: Camera continues pushing forward. City buildings present magnificent silhouettes against the sunset. Golden light dances on the lake surface.
+7.0–10.0s: Camera settles into a stable magnificent sunset shot. Sky shows rich gradient from deep blue to golden orange. City appears prosperous and harmonious. Perfect background for the final CTA.
+
+Camera: smooth forward dolly-in at low stable height, continuous movement.
+
+Keep exactly one city skyline, one river/lake, one sunset sky. Do not add, duplicate, remove, or mutate them.
+No cuts, reverse camera movement, random text, subtitles, logos, watermark, extra limbs, duplicated subjects, explosions, dark cyberpunk styling, or complex HUD.
+No people. No text. No characters.
+Maintain warm sunset tones. No cold light. No dark/black scenes.

@@ -1,0 +1,15 @@
+Scene 04 Video Prompt (Seedance 2.0) — 1080P UPGRADE:
+
+Use the supplied image as the exact first-frame visual reference. Preserve the smart building exterior, warm golden light lines, glass facade, and the consistent bright sky-blue style anchored to scene-01.
+
+Generate a 10-second, 16:9, 1080p, silent, single-continuous-shot video.
+
+0.0–4.0s: Camera begins an arcing orbit from the left side of the smart building, revealing glowing golden light lines tracing the glass facade.
+4.0–7.0s: Camera continues the arc toward the right, digital ecosystem motifs (subtle, non-HUD) shimmer along the structure as warm light plays across surfaces.
+7.0–10.0s: Camera settles on the right side, stable and bright, the building presented as a confident smart-service landmark, preparing for the next scene.
+
+Camera: smooth left-to-right arcing orbit at stable height, continuous movement.
+
+Keep exactly one building. Do not add, duplicate, remove, or mutate it.
+No cuts, reverse camera movement, random text, subtitles, logos, watermark, extra limbs, duplicated subjects, explosions, dark cyberpunk styling, or complex HUD.
+No people. No text. No characters.

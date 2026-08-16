@@ -1,0 +1,6 @@
+Scene 01 Anchor Key Visual Prompt:
+
+A breathtaking modern cityscape panorama at golden hour, bright blue sky with soft white clouds, a serene wide lake in the foreground reflecting the skyline, modern glass-and-steel skyscrapers with reflective facades mirroring the azure sky, lush green parks and trees along the waterfront, clean fresh atmosphere, wide cinematic composition with ample empty sky and water on the left side for text overlay, photorealistic architectural visualization, color palette dominated by sky blue and soft lake blue, warm golden sunlight on building facades, ultra-high quality, 16:9, no people, no text, no characters, no logos
+
+Model: gpt-image-2-medium (image2.0 fallback)
+Reference: none (anchor)

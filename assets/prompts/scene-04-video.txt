@@ -1,0 +1,15 @@
+Scene 04 Video Prompt (Seedance 2.0):
+
+Use the supplied image as the exact first-frame visual reference. Preserve the modern smart building, glass curtain wall reflecting blue sky, warm golden light lines along building edges, subtle holographic displays near entrance, green landscaping, bright daytime lighting.
+
+Generate a 10-second, 16:9, 720p, silent, single-continuous-shot video.
+
+0.0–4.0s: Camera slowly orbits the building from left to right, showing the building's full exterior. Golden light lines gently glow along the building edges. Glass reflections shift dynamically.
+4.0–7.0s: Camera continues orbiting, revealing the entrance area. Subtle holographic data visualization appears elegantly near the entrance. Green plants and flowers in the foreground.
+7.0–10.0s: Camera settles showing the building's right side under bright blue sky. Tech elements feel warm, not cold, preparing for the next scene.
+
+Camera: smooth arc orbit from left to right at medium-low height, continuous movement.
+
+Keep exactly one smart building, one set of golden light lines, one entrance. Do not add, duplicate, remove, or mutate them.
+No cuts, reverse camera movement, random text, subtitles, logos, watermark, extra limbs, duplicated subjects, explosions, dark cyberpunk styling, or complex HUD.
+Tech elements must be warm (golden/amber), no blue cold light. No people. No text. No characters.

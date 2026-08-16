@@ -1,0 +1,6 @@
+Scene 04 Key Visual Prompt:
+
+Same bright sky-blue color palette and fresh daytime lighting as the reference image. Exterior of a modern smart building complex with clean glass architecture reflecting blue sky, subtle elegant digital elements: soft warm amber light lines gently tracing the building edges, faint holographic data visualizations floating near the entrance like subtle information displays, lush green landscaping with trees and flowering plants surrounding the building, bright blue sky with white clouds, the digital elements feel organic and warm rather than cold or cyberpunk, photorealistic architectural visualization with light tech touches, wide composition with empty sky on the left for text overlay, 16:9, no people, no text, no characters, no logos
+
+Model: gem-3.1 (image2.0 fallback)
+Reference: scene-01 anchor

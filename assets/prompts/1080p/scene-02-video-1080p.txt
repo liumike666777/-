@@ -1,0 +1,15 @@
+Scene 02 Video Prompt (Seedance 2.0) — 1080P UPGRADE:
+
+Use the supplied image as the exact first-frame visual reference. Preserve the mixed-use urban district, four property types, green vegetation, blue sky, golden-hour lighting, and bright fresh atmosphere.
+
+Generate a 10-second, 16:9, 1080p, silent, single-continuous-shot video.
+
+0.0–4.0s: Camera slowly descends from bird's-eye view toward medium aerial height. The four districts become progressively clearer: residential community with gardens on the left, commercial towers in the center, industrial park on the right, public green spaces in the foreground.
+4.0–7.0s: Camera continues descending to medium aerial height. Warm sunlight reflects off building surfaces. Road networks and green landscaping become clearly visible.
+7.0–10.0s: Camera settles into a stable medium aerial shot, all four property types harmoniously visible, preparing for the next scene.
+
+Camera: smooth descending push-in with slight tilt rotation, continuous movement.
+
+Keep exactly four property zones. Do not add, duplicate, remove, or mutate them.
+No cuts, reverse camera movement, random text, subtitles, logos, watermark, extra limbs, duplicated subjects, explosions, dark cyberpunk styling, or complex HUD.
+No people. No text. No characters.

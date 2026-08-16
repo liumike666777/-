@@ -1,0 +1,6 @@
+Scene 02 Key Visual Prompt:
+
+Same bright sky-blue color palette and golden-hour lighting as the reference image. A wide elevated view of a modern mixed-use urban district showing four distinct property types seamlessly integrated: a green residential community with elegant mid-rise apartment buildings and landscaped gardens on the left side, sleek glass commercial office towers with reflective facades in the center, modern industrial park buildings with clean lines on the right, and public green spaces with walking paths and plazas in the foreground. Bright blue sky with soft clouds, lush trees throughout, clean fresh atmosphere, photorealistic architectural visualization, wide cinematic composition with ample empty sky on the left for text overlay, 16:9, no people, no text, no characters, no logos
+
+Model: gem-3.1 (image2.0 fallback)
+Reference: scene-01 anchor
