@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { scenes, VIDEO_DURATION } from "./scenes";
 
-const repoUrl = "mailto:ynhl@cohl.com";
+const contactEmail = "ynhl@cohl.com";
+const contactName = "商务合作联系人";
+const contactPhone = "400-888-8888";
+const repoUrl = `mailto:${contactEmail}`;
 const assetBase = import.meta.env.BASE_URL;
 
 // ── 八大服务详情数据 ──────────────────────────────────────────
@@ -198,6 +201,88 @@ function ServiceModal({
   );
 }
 
+// ── 联系我们弹框 ────────────────────────────────────────────────
+function ContactModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div className="modalOverlay" onClick={onClose}>
+      <div
+        className="modalContent contactModalContent"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="modalClose" onClick={onClose} aria-label="关闭">
+          ✕
+        </button>
+
+        <div className="modalHeader">
+          <div className="modalAccentBar" style={{ background: "#E85D4E" }} />
+          <h3>联系我们，开启合作</h3>
+        </div>
+
+        <p className="modalDesc">欢迎洽谈合作意向，我们将在 1 个工作日内与您取得联系。</p>
+
+        <div className="contactGrid">
+          <div className="contactInfo">
+            <div className="contactItem">
+              <span className="contactLabel">公司邮箱</span>
+              <a className="contactValue" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+            </div>
+            <div className="contactItem">
+              <span className="contactLabel">联系人</span>
+              <span className="contactValue">{contactName}</span>
+            </div>
+            <div className="contactItem">
+              <span className="contactLabel">联系电话</span>
+              <a className="contactValue" href={`tel:${contactPhone.replace(/[^0-9+]/g, "")}`}>{contactPhone}</a>
+            </div>
+            <a className="contactMailBtn" href={`mailto:${contactEmail}?subject=合作咨询&body=您好，我们希望与中海物业增值服务展开合作。`}>
+              发送邮件咨询 →
+            </a>
+          </div>
+
+          <div className="contactQr">
+            <div className="contactQrFrame">
+              <img
+                src={`${assetBase}media/contact-qr.jpg`}
+                alt="中海生活服务官 微信二维码"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
+                  const sib = (e.currentTarget as HTMLImageElement).nextElementSibling;
+                  if (sib) (sib as HTMLElement).style.display = "flex";
+                }}
+              />
+              <div className="contactQrFallback" style={{ display: "none" }}>
+                <span>微信二维码<br />待上传</span>
+              </div>
+            </div>
+            <p className="contactQrHint">扫码添加「中海生活服务官」</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── 主应用 ────────────────────────────────────────────────────
 export default function App() {
   const worldRef = useRef<HTMLDivElement>(null);
@@ -209,6 +294,7 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [modalSvc, setModalSvc] = useState<ServiceDetail | null>(null);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const starts = useMemo(() => scenes.map((scene) => scene.start / VIDEO_DURATION), []);
 
@@ -275,7 +361,7 @@ export default function App() {
       <header className="header">
         <a className="brand" href="#start">中海物业增值服务 <small>COHL Property Value-Added Services</small></a>
         <nav>{scenes.map((scene, i) => <button className={i === active ? "active" : ""} onClick={() => jump(starts[i])} key={scene.id}>{scene.nav}</button>)}</nav>
-        <a className="cta small" href={repoUrl} target="_blank" rel="noreferrer">联系我们 ↗</a>
+        <button type="button" className="cta small" onClick={() => setContactOpen(true)}>联系我们 ↗</button>
       </header>
 
       <section className="world" id="start" ref={worldRef}>
@@ -286,7 +372,7 @@ export default function App() {
               ref={videoRef}
               className={ready && !failed ? "ready" : ""}
               src={`${assetBase}media/scroll-story.mp4?v=1`}
-              poster={`${assetBase}stills/scene-01.jpg`}
+              poster={`${assetBase}stills/scene-01.png`}
               preload="auto"
               muted
               playsInline
@@ -312,7 +398,7 @@ export default function App() {
                   <div className="tags">{scene.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                 )}
                 
-                {i === scenes.length - 1 && <a className="cta" href={repoUrl} target="_blank" rel="noreferrer">联系我们，开启合作 ↗</a>}
+                {i === scenes.length - 1 && <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>}
               </article>
             ))}
           </div>
@@ -334,13 +420,14 @@ export default function App() {
               <h2>{scene.title}</h2>
               <p>{scene.body}</p>
               {i === 2 && <ServiceTagGrid onOpen={setModalSvc} />}
-              {i === scenes.length - 1 && <a className="cta" href={repoUrl}>联系我们，开启合作 ↗</a>}
+              {i === scenes.length - 1 && <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>}
             </div>
           </article>
         ))}
       </section>
 
       <ServiceModal svc={modalSvc} onClose={() => setModalSvc(null)} />
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </main>
   );
 }
