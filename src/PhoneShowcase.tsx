@@ -9,6 +9,23 @@ type Module = {
 
 const base = import.meta.env.BASE_URL;
 
+// 每个模块对应一个光晕主色，环境光晕随功能变化
+const GLOW: Record<string, string> = {
+  home: "#e85d4e",
+  access: "#3aa0ff",
+  service: "#27c39f",
+  pay: "#f5a623",
+  repair: "#ff6b9d",
+  neighbor: "#9b6bff",
+  mall: "#ff8a3d",
+  life: "#22c3e6",
+  homeplus: "#6fcf57",
+  gift: "#ff5fa2",
+};
+function glowColor(id: string): string {
+  return GLOW[id] || "#e85d4e";
+}
+
 export default function PhoneShowcase() {
   const [modules, setModules] = useState<Module[]>([]);
   const [activeId, setActiveId] = useState<string>("");
@@ -63,7 +80,10 @@ export default function PhoneShowcase() {
   if (!active) return null;
 
   return (
-    <div className="phoneShowcase">
+    <div
+      className="phoneShowcase"
+      style={{ "--glow": glowColor(active.id) } as React.CSSProperties}
+    >
       {/* 3D 手机 */}
       <div className="phoneStage">
         <div className="phone3d">
