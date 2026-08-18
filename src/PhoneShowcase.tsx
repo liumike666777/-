@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-type Module = {
+export type Module = {
   id: string;
   label: string;
   file: string;
@@ -29,7 +29,7 @@ function glowColor(id: string): string {
 export default function PhoneShowcase({
   onActiveChange,
 }: {
-  onActiveChange?: (m: Module | undefined) => void;
+  onActiveChange?: (m: Module | null) => void;
 }) {
   const [modules, setModules] = useState<Module[]>([]);
   const [activeId, setActiveId] = useState<string>("");

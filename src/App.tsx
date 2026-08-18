@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { scenes, VIDEO_DURATION } from "./scenes";
-import PhoneShowcase from "./PhoneShowcase";
+import PhoneShowcase, { Module } from "./PhoneShowcase";
 
 const contactEmail = "ynhl@cohl.com";
 const contactName = "商务合作联系人";
@@ -368,11 +368,7 @@ export default function App() {
   const [modalSvc, setModalSvc] = useState<ServiceDetail | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
   const [appQrOpen, setAppQrOpen] = useState(false);
-  const [phoneActiveModule, setPhoneActiveModule] = useState<{
-    id: string;
-    label: string;
-    desc: string;
-  } | null>(null);
+  const [phoneActiveModule, setPhoneActiveModule] = useState<Module | null>(null);
 
   const starts = useMemo(() => scenes.map((scene) => scene.start / VIDEO_DURATION), []);
 
