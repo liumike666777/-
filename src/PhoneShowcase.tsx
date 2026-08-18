@@ -122,6 +122,7 @@ export default function PhoneShowcase() {
               onClick={() => select(m.id)}
             >
               {m.label}
+              {m.desc && <span className="phoneDockTip">{m.desc}</span>}
             </button>
           ))}
         </div>

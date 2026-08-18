@@ -284,6 +284,67 @@ function ContactModal({
   );
 }
 
+function AppDownloadModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div className="modalOverlay" onClick={onClose}>
+      <div
+        className="modalContent contactModalContent"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="modalClose" onClick={onClose} aria-label="关闭">
+          ✕
+        </button>
+
+        <div className="modalHeader">
+          <div className="modalAccentBar" style={{ background: "#7F75E8" }} />
+          <h3>扫码下载优你家Plus</h3>
+        </div>
+
+        <p className="modalDesc">微信或浏览器扫一扫，下载 App 即刻体验社区智慧生活。</p>
+
+        <div className="contactQr">
+          <div className="contactQrFrame">
+            <img
+              src={`${assetBase}media/app-download-qr.png`}
+              alt="优你家Plus App 下载二维码"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+                const sib = (e.currentTarget as HTMLImageElement).nextElementSibling;
+                if (sib) (sib as HTMLElement).style.display = "flex";
+              }}
+            />
+            <div className="contactQrFallback" style={{ display: "none" }}>
+              <span>App 二维码<br />待上传</span>
+            </div>
+          </div>
+          <p className="contactQrHint">扫码下载「优你家Plus」</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── 主应用 ────────────────────────────────────────────────────
 export default function App() {
   const worldRef = useRef<HTMLDivElement>(null);
@@ -296,6 +357,7 @@ export default function App() {
   const [failed, setFailed] = useState(false);
   const [modalSvc, setModalSvc] = useState<ServiceDetail | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
+  const [appQrOpen, setAppQrOpen] = useState(false);
 
   const starts = useMemo(() => scenes.map((scene) => scene.start / VIDEO_DURATION), []);
 
@@ -399,7 +461,12 @@ export default function App() {
                   <div className="tags">{scene.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                 )}
                 
-                {i === scenes.length - 1 && <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>}
+                {i === scenes.length - 1 && (
+                  <div className="ctaRow">
+                    <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>
+                    <button type="button" className="cta ghost" onClick={() => setAppQrOpen(true)}>体验优你家Plus ↗</button>
+                  </div>
+                )}
               </article>
             ))}
           </div>
@@ -423,7 +490,12 @@ export default function App() {
               <h2>{scene.title}</h2>
               <p>{scene.body}</p>
               {i === 2 && <ServiceTagGrid onOpen={setModalSvc} />}
-              {i === scenes.length - 1 && <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>}
+              {i === scenes.length - 1 && (
+                <div className="ctaRow">
+                  <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>
+                  <button type="button" className="cta ghost" onClick={() => setAppQrOpen(true)}>体验优你家Plus ↗</button>
+                </div>
+              )}
             </div>
           </article>
         ))}
@@ -431,6 +503,7 @@ export default function App() {
 
       <ServiceModal svc={modalSvc} onClose={() => setModalSvc(null)} />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      <AppDownloadModal open={appQrOpen} onClose={() => setAppQrOpen(false)} />
     </main>
   );
 }
