@@ -82,8 +82,30 @@ h1,h2 { margin:22px 0 17px; font-size:clamp(42px,4.5vw,72px); line-height:1.08; 
 .phoneDockTip::after { content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#0c1824f2; }
 .phoneDockBtn:hover .phoneDockTip { opacity:1; transform:translateX(-50%) translateY(0); }
 
+/* 移动端降级：功能卡片网格 */
+.phoneMobileDeck { display:none; grid-template-columns:repeat(2, 1fr); gap:10px; width:min(440px, 86vw); pointer-events:auto; }
+.phoneMobileCard { position:relative; display:flex; flex-direction:column; gap:4px; padding:14px 14px 16px; border-radius:16px; border:1px solid #17324d14; background:#ffffffe6; cursor:pointer; text-align:left; overflow:hidden; transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; backdrop-filter:blur(8px); }
+.phoneMobileCard::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--mc); opacity:.5; transition:opacity .2s ease; }
+.phoneMobileCard:hover { transform:translateY(-2px); box-shadow:0 10px 22px #17324d1a; }
+.phoneMobileCard.active { border-color:var(--mc); box-shadow:0 10px 26px #17324d1f; }
+.phoneMobileCard.active::before { opacity:1; }
+.phoneMobileCardLabel { font-size:15px; font-weight:900; color:var(--ink); }
+.phoneMobileCardDesc { font-size:12px; font-weight:600; color:var(--soft); line-height:1.45; }
+
+/* 场景 04 文案与手机联动：当前功能高亮 */
+.smartLive { display:flex; align-items:center; gap:10px; margin:18px 0 4px; padding:10px 14px; border-radius:14px; background:#ffffffcf; border:1px solid #17324d12; box-shadow:0 8px 20px #17324d10; opacity:0; transform:translateY(8px); transition:opacity .35s ease, transform .35s ease; }
+.smartLive.show { opacity:1; transform:none; }
+.smartLive .dot { width:10px; height:10px; border-radius:50%; background:var(--glow, #e85d4e); box-shadow:0 0 0 4px color-mix(in srgb, var(--glow, #e85d4e) 22%, transparent); flex:none; }
+.smartLive .smartLiveText { font-size:13px; font-weight:700; color:var(--ink); }
+.smartLive .smartLiveText b { color:var(--glow, #e85d4e); }
+
 @media (max-width:1100px) { .phoneShowcase { right:5vw; } .phoneFrame { width:210px; height:438px; } }
-@media (max-width:860px), (prefers-reduced-motion:reduce) { .phoneShowcase { display:none; } }
+/* 窄屏 / 降低动效：隐藏 3D，改为功能卡片网格 */
+@media (max-width:860px), (prefers-reduced-motion:reduce) {
+  .phoneShowcase { position:relative; top:auto; right:auto; transform:none; left:auto; justify-content:center; margin:8px auto 0; }
+  .phoneShowcase .onlyDesktop, .phoneStage { display:none; }
+  .phoneMobileDeck { display:grid; }
+}
 .mobileStory { display:none; }
 @media (max-width:760px), (prefers-reduced-motion:reduce) { .header { position:sticky; grid-template-columns:1fr auto; }.header nav { display:none; }.world { display:none; }.mobileStory { display:grid; }.mobileScene { min-height:100svh; display:grid; align-content:center; gap:24px; padding:26px 18px 44px; border-bottom:1px solid #17324d14; }.mobileScene img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:22px; box-shadow:0 18px 45px #17324d20; }.mobileScene small { color:var(--orange); font-weight:900; }.mobileScene h2 { font-size:clamp(34px,9vw,48px); }.mobileScene p { color:var(--soft); line-height:1.75; font-weight:600; } }
 @media (prefers-reduced-motion:reduce) and (min-width:761px) { .mobileScene { grid-template-columns:1.2fr .8fr; align-items:center; padding:100px 8vw; }.mobileScene img { width:100%; } }

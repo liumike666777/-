@@ -6,6 +6,16 @@ const contactEmail = "ynhl@cohl.com";
 const contactName = "商务合作联系人";
 const contactPhone = "400-888-8888";
 const repoUrl = `mailto:${contactEmail}`;
+
+// 与 PhoneShowcase 一致的功能色，用于场景文案联动高亮
+const GLOW: Record<string, string> = {
+  home: "#e85d4e", access: "#3aa0ff", service: "#27c39f", pay: "#f5a623",
+  repair: "#ff6b9d", neighbor: "#9b6bff", mall: "#ff8a3d", life: "#22c3e6",
+  homeplus: "#6fcf57", gift: "#ff5fa2",
+};
+function glowColor(id: string): string {
+  return GLOW[id] || "#e85d4e";
+}
 const assetBase = import.meta.env.BASE_URL;
 
 // ── 八大服务详情数据 ──────────────────────────────────────────
@@ -358,6 +368,11 @@ export default function App() {
   const [modalSvc, setModalSvc] = useState<ServiceDetail | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
   const [appQrOpen, setAppQrOpen] = useState(false);
+  const [phoneActiveModule, setPhoneActiveModule] = useState<{
+    id: string;
+    label: string;
+    desc: string;
+  } | null>(null);
 
   const starts = useMemo(() => scenes.map((scene) => scene.start / VIDEO_DURATION), []);
 
@@ -467,11 +482,27 @@ export default function App() {
                     <button type="button" className="cta ghost" onClick={() => setAppQrOpen(true)}>体验优你家Plus ↗</button>
                   </div>
                 )}
+
+                {/* Scene 4 文案与手机联动：随当前功能高亮 */}
+                {i === 3 && (
+                  <div
+                    className={`smartLive ${phoneActiveModule ? "show" : ""}`}
+                    style={{ "--glow": phoneActiveModule ? glowColor(phoneActiveModule.id) : "#e85d4e" } as React.CSSProperties}
+                  >
+                    <span className="dot" />
+                    <span className="smartLiveText">
+                      正在看：<b>{phoneActiveModule?.label || "优你家Plus"}</b>
+                      {phoneActiveModule?.desc ? ` · ${phoneActiveModule.desc}` : ""}
+                    </span>
+                  </div>
+                )}
               </article>
             ))}
           </div>
 
-          {active === 3 && <PhoneShowcase />}
+          {active === 3 && (
+            <PhoneShowcase onActiveChange={setPhoneActiveModule} />
+          )}
 
           <aside className="rail" aria-label={`当前场景：${scenes[active].nav}`}>
             <strong>{scenes[active].number}</strong>
@@ -490,6 +521,7 @@ export default function App() {
               <h2>{scene.title}</h2>
               <p>{scene.body}</p>
               {i === 2 && <ServiceTagGrid onOpen={setModalSvc} />}
+              {i === 3 && <PhoneShowcase onActiveChange={setPhoneActiveModule} />}
               {i === scenes.length - 1 && (
                 <div className="ctaRow">
                   <button type="button" className="cta" onClick={() => setContactOpen(true)}>联系我们，开启合作 ↗</button>

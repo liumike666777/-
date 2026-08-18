@@ -26,7 +26,11 @@ function glowColor(id: string): string {
   return GLOW[id] || "#e85d4e";
 }
 
-export default function PhoneShowcase() {
+export default function PhoneShowcase({
+  onActiveChange,
+}: {
+  onActiveChange?: (m: Module | undefined) => void;
+}) {
   const [modules, setModules] = useState<Module[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const [imgOk, setImgOk] = useState<Record<string, boolean>>({});
@@ -57,6 +61,11 @@ export default function PhoneShowcase() {
     [modules, activeId]
   );
 
+  // 当前模块变化时，向上通知（用于场景文案联动）
+  useEffect(() => {
+    onActiveChange?.(active);
+  }, [active, onActiveChange]);
+
   // 手机下方的入口按钮：始终列出全部模块，当前激活项高亮
   const dock = useMemo<Module[]>(() => {
     if (!active) return [];
@@ -84,8 +93,8 @@ export default function PhoneShowcase() {
       className="phoneShowcase"
       style={{ "--glow": glowColor(active.id) } as React.CSSProperties}
     >
-      {/* 3D 手机 */}
-      <div className="phoneStage">
+      {/* 桌面端：3D 手机 */}
+      <div className="phoneStage onlyDesktop">
         <div className="phone3d">
           <div className="phoneFrame">
             <div className="phoneNotch" />
@@ -126,6 +135,23 @@ export default function PhoneShowcase() {
             </button>
           ))}
         </div>
+      </div>
+
+      {/* 移动端降级：功能卡片网格，无需 3D */}
+      <div className="phoneMobileDeck" role="tablist" aria-label="优你家Plus 功能模块">
+        {modules.map((m) => (
+          <button
+            key={m.id}
+            role="tab"
+            aria-selected={m.id === activeId}
+            className={`phoneMobileCard ${m.id === activeId ? "active" : ""}`}
+            style={{ "--mc": glowColor(m.id) } as React.CSSProperties}
+            onClick={() => select(m.id)}
+          >
+            <span className="phoneMobileCardLabel">{m.label}</span>
+            <span className="phoneMobileCardDesc">{m.desc}</span>
+          </button>
+        ))}
       </div>
     </div>
   );
