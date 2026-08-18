@@ -1,0 +1,15 @@
+{
+  "default": "APP首页",
+  "modules": [
+    { "id": "home",      "label": "APP首页",   "file": "APP首页.png",     "desc": "优你家Plus 一站式社区服务门户" },
+    { "id": "access",    "label": "蓝牙开门",  "file": "蓝牙开门.jpg",    "desc": "蓝牙无感开门、远程授权、访客邀约" },
+    { "id": "service",   "label": "物业服务",  "file": "物业服务.jpg",    "desc": "物业公告、工单进度、在线客服" },
+    { "id": "pay",       "label": "物业缴费",  "file": "物业缴费.jpg",    "desc": "物业费、水电费一键清缴" },
+    { "id": "repair",    "label": "报事报修",  "file": "报事报修.png",    "desc": "拍照报修、进度追踪、评价闭环" },
+    { "id": "neighbor",  "label": "邻里圈子",  "file": "邻里圈子.jpg",    "desc": "邻里互动、社区活动、兴趣社群" },
+    { "id": "mall",      "label": "购好物",    "file": "购好物.png",      "desc": "周边好物、到店自提、邻里拼团" },
+    { "id": "life",      "label": "优生活",    "file": "优生活.jpg",      "desc": "家政保洁、生活服务一键预约" },
+    { "id": "homeplus",  "label": "享到家",    "file": "享到家.png",      "desc": "到家服务、品质生活新方式" },
+    { "id": "gift",      "label": "优礼节",    "file": "优礼节.jpg",      "desc": "节日礼遇、会员专享权益" }
+  ]
+}

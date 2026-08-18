@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { scenes, VIDEO_DURATION } from "./scenes";
+import PhoneShowcase from "./PhoneShowcase";
 
 const contactEmail = "ynhl@cohl.com";
 const contactName = "商务合作联系人";
@@ -402,6 +403,8 @@ export default function App() {
               </article>
             ))}
           </div>
+
+          {active === 3 && <PhoneShowcase />}
 
           <aside className="rail" aria-label={`当前场景：${scenes[active].nav}`}>
             <strong>{scenes[active].number}</strong>
