@@ -40,6 +40,17 @@ export default function PhoneShowcase() {
     [modules, activeId]
   );
 
+  // 手机下方的入口按钮：始终列出全部模块，当前激活项高亮
+  const dock = useMemo<Module[]>(() => {
+    if (!active) return [];
+    if (active.id === "home") return modules;
+    // 非首页：把"首页"放在最前作为返回入口，其余照列
+    return [
+      { ...modules[0], label: "← 首页" },
+      ...modules.slice(1),
+    ];
+  }, [active, modules]);
+
   const screenSrc = active ? `${base}phone-app/${active.file}` : "";
 
   function select(id: string) {
@@ -53,22 +64,6 @@ export default function PhoneShowcase() {
 
   return (
     <div className="phoneShowcase">
-      {/* 功能按钮组 */}
-      <div className="phoneTabs" role="tablist" aria-label="优你家Plus 功能模块">
-        {modules.map((m) => (
-          <button
-            key={m.id}
-            role="tab"
-            aria-selected={m.id === activeId}
-            className={`phoneTab ${m.id === activeId ? "active" : ""}`}
-            onClick={() => select(m.id)}
-          >
-            <span className="phoneTabLabel">{m.label}</span>
-            <span className="phoneTabDesc">{m.desc}</span>
-          </button>
-        ))}
-      </div>
-
       {/* 3D 手机 */}
       <div className="phoneStage">
         <div className="phone3d">
@@ -96,9 +91,20 @@ export default function PhoneShowcase() {
           </div>
           <div className="phoneShadow" />
         </div>
-        <p className="phoneCaption">
-          点击左侧功能，预览优你家Plus「{active.label}」
-        </p>
+        {/* 手机下方的入口按钮排 */}
+        <div className="phoneDock" role="tablist" aria-label="优你家Plus 功能模块">
+          {dock.map((m) => (
+            <button
+              key={m.id}
+              role="tab"
+              aria-selected={m.id === activeId}
+              className={`phoneDockBtn ${m.id === activeId ? "active" : ""}`}
+              onClick={() => select(m.id)}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
