@@ -55,8 +55,9 @@ h1,h2 { margin:22px 0 17px; font-size:clamp(42px,4.5vw,72px); line-height:1.08; 
 .phoneNotch { position:absolute; top:18px; left:50%; transform:translateX(-50%); width:78px; height:20px; background:#05080d; border-radius:12px; z-index:3; box-shadow:inset 0 1px 1px #ffffff22; }
 .phoneScreen { position:relative; width:100%; height:100%; border-radius:32px; overflow:hidden; background:#0b1220;
   box-shadow:inset 0 0 0 1px #ffffff10; z-index:1; }
-.phoneScreen img { position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block; transition:opacity .4s ease, transform .4s ease; }
-.phoneScreen.switching img { opacity:0; transform:scale(1.04); }
+.phoneScreen img { position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block; transition:opacity .45s ease, transform .45s ease, filter .45s ease; }
+/* 切换时不再整屏淡出到黑：改为轻微缩放+提亮，旧图始终可见，避免大图加载慢导致的黑屏 */
+.phoneScreen.switching img { opacity:.35; transform:scale(1.06); filter:brightness(1.15) saturate(1.1); }
 /* 屏幕扫描线光泽：周期性从左到右扫过 */
 .phoneScreen::after { content:""; position:absolute; top:0; left:-60%; width:60%; height:100%; z-index:4; pointer-events:none;
   background:linear-gradient(105deg, transparent 0%, #ffffff10 40%, #ffffff38 50%, #ffffff10 60%, transparent 100%);

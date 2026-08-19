@@ -43,7 +43,12 @@ export default function PhoneShowcase({
       .then((data: { default: string; modules: Module[] }) => {
         if (!alive) return;
         setModules(data.modules);
-        setActiveId(data.default || data.modules[0]?.id || "");
+        // default 字段是 label（如 "APP首页"），按 label 反查成 id；兜底用首模块 id
+        const initId =
+          data.modules.find((m) => m.label === data.default)?.id ||
+          data.modules[0]?.id ||
+          "";
+        setActiveId(initId);
       })
       .catch(() => {
         if (!alive) return;
