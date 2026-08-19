@@ -512,6 +512,13 @@ export default function App() {
             <PhoneShowcase onActiveChange={setPhoneActiveModule} />
           )}
 
+          {/* 首屏滚动提示：界面中间下方，引导向下滚动翻页 */}
+          <div className={`scrollHint ${active === 0 ? "show" : ""}`} aria-hidden={active !== 0}>
+            <div className="scrollHintMouse"><i /></div>
+            <span className="scrollHintText">向下滚动 · 翻页浏览</span>
+            <span className="scrollHintArrow">⌄</span>
+          </div>
+
           <aside className="rail" aria-label={`当前场景：${scenes[active].nav}`}>
             <strong>{scenes[active].number}</strong>
             <div className="railTrack"><i style={{ height: `${progress * 100}%` }} />{scenes.map((scene, i) => <button className={i === active ? "active" : i < active ? "past" : ""} onClick={() => jump(starts[i])} aria-label={`前往${scene.nav}`} key={scene.id} />)}</div>

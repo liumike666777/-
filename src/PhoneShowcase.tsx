@@ -142,21 +142,45 @@ export default function PhoneShowcase({
         </div>
       </div>
 
-      {/* 移动端降级：功能卡片网格，无需 3D */}
-      <div className="phoneMobileDeck" role="tablist" aria-label="优你家Plus 功能模块">
-        {modules.map((m) => (
-          <button
-            key={m.id}
-            role="tab"
-            aria-selected={m.id === activeId}
-            className={`phoneMobileCard ${m.id === activeId ? "active" : ""}`}
-            style={{ "--mc": glowColor(m.id) } as React.CSSProperties}
-            onClick={() => select(m.id)}
-          >
-            <span className="phoneMobileCardLabel">{m.label}</span>
-            <span className="phoneMobileCardDesc">{m.desc}</span>
-          </button>
-        ))}
+      {/* 移动端：手机模型 + 横向功能胶囊 */}
+      <div className="phoneMobileStage" style={{ "--glow": glowColor(active.id) } as React.CSSProperties}>
+        <div className="phoneMobile3d">
+          <div className="phoneFrame phoneFrameMobile">
+            <div className="phoneNotch" />
+            <div className={`phoneScreen ${switching ? "switching" : ""}`}>
+              {imgOk[active.id] === false ? (
+                <div className="phonePlaceholder">
+                  <span className="phonePhIcon">📱</span>
+                  <strong>{active.label}</strong>
+                  <small>{active.desc}</small>
+                </div>
+              ) : (
+                <img
+                  src={screenSrc}
+                  alt={`优你家Plus ${active.label}界面`}
+                  onError={() => setImgOk((p) => ({ ...p, [active.id]: false }))}
+                  onLoad={() => setImgOk((p) => ({ ...p, [active.id]: true }))}
+                />
+              )}
+              <div className="phoneGlow" />
+            </div>
+          </div>
+          <div className="phoneShadow" />
+        </div>
+        <div className="phoneMobileDock" role="tablist" aria-label="优你家Plus 功能模块">
+          {modules.map((m) => (
+            <button
+              key={m.id}
+              role="tab"
+              aria-selected={m.id === activeId}
+              className={`phoneMobileChip ${m.id === activeId ? "active" : ""}`}
+              style={{ "--mc": glowColor(m.id) } as React.CSSProperties}
+              onClick={() => select(m.id)}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
