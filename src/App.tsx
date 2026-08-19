@@ -358,8 +358,7 @@ function AppDownloadModal({
 // ── 主应用 ────────────────────────────────────────────────────
 export default function App() {
   const worldRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const targetTime = useRef(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const raf = useRef<number | null>(null);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -372,14 +371,9 @@ export default function App() {
 
   const starts = useMemo(() => scenes.map((scene) => scene.start / VIDEO_DURATION), []);
 
-  const syncVideo = useCallback(() => {
-    const video = videoRef.current;
-    if (!video || failed || video.readyState < HTMLMediaElement.HAVE_METADATA) return;
-    if (!video.seeking && Math.abs(targetTime.current - video.currentTime) > 0.035) {
-      video.currentTime = targetTime.current;
-    }
-  }, [failed]);
-
+  // 方案1「分镜切片 + 定格切换」：滚动只计算当前场景 active 与进度，
+  // 视频不再逐帧 seek，而是按场景切换到对应 10s 片段并自然播放——
+  // 永远顺序解码、零随机 seek、绝对丝滑。
   const update = useCallback(() => {
     const world = worldRef.current;
     if (!world) return;
@@ -389,11 +383,9 @@ export default function App() {
     const time = local * VIDEO_DURATION;
     let index = 0;
     scenes.forEach((scene, i) => { if (time >= scene.start) index = i; });
-    targetTime.current = time;
     setProgress(local);
     setActive(index);
-    syncVideo();
-  }, [syncVideo]);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -413,16 +405,19 @@ export default function App() {
     };
   }, [update]);
 
+  // active 变化时：播放当前片段、暂停并复位其余片段（零 seek，纯切换）
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const requestFrame = () => {
-      video.currentTime = targetTime.current === 0 ? 0.001 : targetTime.current;
-    };
-    video.addEventListener("loadedmetadata", requestFrame);
-    video.load();
-    return () => video.removeEventListener("loadedmetadata", requestFrame);
-  }, []);
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        v.currentTime = 0;
+        const p = v.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [active]);
 
   function jump(ratio: number) {
     const world = worldRef.current;
@@ -441,20 +436,23 @@ export default function App() {
       <section className="world" id="start" ref={worldRef}>
         <div className="stage">
           <div className="media" aria-hidden="true">
-            <img className={`poster ${ready && !failed ? "hidden" : ""}`} src={scenes[active].still} alt="" />
-            <video
-              ref={videoRef}
-              className={ready && !failed ? "ready" : ""}
-              src={`${assetBase}media/scroll-story.mp4?v=1`}
-              poster={`${assetBase}stills/scene-01.png`}
-              preload="auto"
-              muted
-              playsInline
-              onLoadedData={() => setReady(true)}
-              onCanPlay={() => setReady(true)}
-              onSeeked={() => { setReady(true); requestAnimationFrame(syncVideo); }}
-              onError={() => setFailed(true)}
-            />
+            <img className="poster" src={scenes[active].still} alt="" />
+            {scenes.map((scene, i) => (
+              <video
+                key={scene.id}
+                ref={(el) => { if (el) videoRefs.current[i] = el; }}
+                className={`seg ${i === active ? "active" : ""} ${ready ? "ready" : ""}`}
+                src={`${assetBase}media/scroll-story-0${i + 1}.mp4?v=1`}
+                poster={`${assetBase}stills/scene-0${i + 1}.png`}
+                preload="auto"
+                muted
+                playsInline
+                loop={false}
+                onLoadedData={() => { if (i === 0) setReady(true); }}
+                onCanPlay={() => { if (i === 0) setReady(true); }}
+                onError={() => setFailed(true)}
+              />
+            ))}
             <div className="wash" />
           </div>
 
@@ -464,6 +462,17 @@ export default function App() {
                 <div className="kicker"><span>{scene.number} / {String(scenes.length).padStart(2, "0")}</span><i style={{ background: scene.accent }} /><span>{scene.eyebrow}</span></div>
                 {i === 0 ? <h1>{scene.title}</h1> : <h2>{scene.title}</h2>}
                 <p>{scene.body}</p>
+
+                {scene.stats && (
+                  <div className="statCapsules">
+                    {scene.stats.map((s) => (
+                      <div className="statCapsule" key={s.label} style={{ "--statAccent": scene.accent } as React.CSSProperties}>
+                        <strong>{s.value}</strong>
+                        <span>{s.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 
                 {/* Scene 3 八大服务标签网格 */}
                 {i === 2 ? (
@@ -486,7 +495,10 @@ export default function App() {
                     style={{ "--glow": phoneActiveModule ? glowColor(phoneActiveModule.id) : "#e85d4e" } as React.CSSProperties}
                   >
                     <span className="dot" />
-                    <span className="smartLiveText">
+                    <span
+                      className="smartLiveText"
+                      key={phoneActiveModule?.id || "default"}
+                    >
                       正在看：<b>{phoneActiveModule?.label || "优你家Plus"}</b>
                       {phoneActiveModule?.desc ? ` · ${phoneActiveModule.desc}` : ""}
                     </span>
@@ -516,6 +528,16 @@ export default function App() {
               <small>{scene.number} / {String(scenes.length).padStart(2, "0")} · {scene.eyebrow}</small>
               <h2>{scene.title}</h2>
               <p>{scene.body}</p>
+              {i === 0 && scene.stats && (
+                <div className="statCapsules">
+                  {scene.stats.map((s) => (
+                    <div className="statCapsule" key={s.label} style={{ "--statAccent": scene.accent } as React.CSSProperties}>
+                      <strong>{s.value}</strong>
+                      <span>{s.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
               {i === 2 && <ServiceTagGrid onOpen={setModalSvc} />}
               {i === 3 && <PhoneShowcase onActiveChange={setPhoneActiveModule} />}
               {i === scenes.length - 1 && (
