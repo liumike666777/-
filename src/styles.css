@@ -48,8 +48,9 @@ h1,h2 { margin:22px 0 17px; font-size:clamp(42px,4.5vw,72px); line-height:1.08; 
 .statCapsule span { font-size:12px; font-weight:700; color:var(--soft); }
 .tags { display:flex; gap:8px; margin-top:24px; }.tags span { padding:8px 12px; border-radius:999px; background:#ffffffd6; font-size:11px; font-weight:800; }
 /* ── 首屏滚动提示（中间下方） ─────────────────────── */
-.scrollHint { position:absolute; z-index:7; left:50%; bottom:38px; transform:translateX(-50%) translateY(10px); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; pointer-events:none; transition:opacity .5s ease, transform .5s ease; filter:drop-shadow(0 2px 6px rgba(0,0,0,.45)); }
-.scrollHint.show { opacity:1; transform:translateX(-50%) translateY(0); animation:scrollHintBob 2.2s ease-in-out infinite; }
+.scrollHint { position:absolute; z-index:7; left:50%; bottom:38px; transform:translateX(-50%) translateY(10px); display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0; pointer-events:none; background:none; border:0; padding:0; margin:0; font:inherit; color:inherit; cursor:default; transition:opacity .5s ease, transform .5s ease; filter:drop-shadow(0 2px 6px rgba(0,0,0,.45)); }
+.scrollHint.show { opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; cursor:pointer; animation:scrollHintBob 2.2s ease-in-out infinite; }
+.scrollHint.show:active { transform:translateX(-50%) translateY(2px); animation:none; }
 .scrollHintMouse { position:relative; width:24px; height:38px; border:2px solid #fff; border-radius:14px; opacity:1; }
 .scrollHintMouse i { position:absolute; top:7px; left:50%; width:3px; height:7px; margin-left:-1.5px; border-radius:3px; background:#fff; animation:scrollHintWheel 1.6s ease-in-out infinite; }
 .scrollHintText { font-size:12px; font-weight:800; letter-spacing:.1em; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.55); }
@@ -57,6 +58,10 @@ h1,h2 { margin:22px 0 17px; font-size:clamp(42px,4.5vw,72px); line-height:1.08; 
 @keyframes scrollHintWheel { 0% { opacity:0; transform:translateY(-2px); } 30% { opacity:1; } 70% { opacity:1; } 100% { opacity:0; transform:translateY(10px); } }
 @keyframes scrollHintArrow { 0%,100% { transform:translateY(0); opacity:.45; } 50% { transform:translateY(5px); opacity:.85; } }
 @keyframes scrollHintBob { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(6px); } }
+/* 末页“回到顶部”变体：鼠标图标替换为向上箭头 */
+.scrollHintTop { width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:2px solid #fff; font-size:16px; font-weight:900; color:#fff; animation:scrollHintTop 1.6s ease-in-out infinite; }
+@keyframes scrollHintTop { 0%,100% { transform:translateY(0); opacity:.55; } 50% { transform:translateY(-5px); opacity:1; } }
+.scrollHint.top .scrollHintArrow { display:none; }
 /* 移动端隐藏（移动端为独立静态布局，无需滚动提示） */
 @media (max-width:760px), (prefers-reduced-motion:reduce) { .scrollHint { display:none; } }
 
@@ -142,7 +147,9 @@ h1,h2 { margin:22px 0 17px; font-size:clamp(42px,4.5vw,72px); line-height:1.08; 
   .phoneMobileStage { display:flex; }
 }
 .mobileStory { display:none; }
-@media (max-width:760px), (prefers-reduced-motion:reduce) { .header { position:sticky; grid-template-columns:1fr auto; }.header nav { display:none; }.world { display:none; }.mobileStory { display:grid; }.mobileScene { min-height:100svh; display:grid; align-content:center; gap:24px; padding:26px 18px 44px; border-bottom:1px solid #17324d14; }.mobileScene img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:22px; box-shadow:0 18px 45px #17324d20; }.mobileScene small { color:var(--orange); font-weight:900; }.mobileScene h2 { font-size:clamp(34px,9vw,48px); }.mobileScene p { color:var(--soft); line-height:1.75; font-weight:600; } }
+@media (max-width:760px), (prefers-reduced-motion:reduce) { .header { position:sticky; grid-template-columns:1fr auto; }.header nav { display:none; }.world { display:none; }.mobileStory { display:grid; }.mobileScene { min-height:100svh; display:grid; align-content:center; gap:24px; padding:26px 18px 44px; border-bottom:1px solid #17324d14; }.mobileScene img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:22px; box-shadow:0 18px 45px #17324d20; }.mobileScene small { color:var(--orange); font-weight:900; }.mobileScene h2 { font-size:clamp(34px,9vw,48px); }.mobileScene p { color:var(--soft); line-height:1.75; font-weight:600; }
+.scrollHintMobile { position:sticky; bottom:26px; margin:22px auto 0; display:flex; flex-direction:column; align-items:center; gap:7px; background:none; border:0; padding:0; font:inherit; color:inherit; cursor:pointer; filter:drop-shadow(0 2px 6px rgba(0,0,0,.4)); }
+.scrollHintMobile.top .scrollHintArrow { display:none; } }
 @media (prefers-reduced-motion:reduce) and (min-width:761px) { .mobileScene { grid-template-columns:1.2fr .8fr; align-items:center; padding:100px 8vw; }.mobileScene img { width:100%; } }
 
 /* ── 八大服务标签网格 ─────────────────────────────── */

@@ -512,12 +512,26 @@ export default function App() {
             <PhoneShowcase onActiveChange={setPhoneActiveModule} />
           )}
 
-          {/* 首屏滚动提示：界面中间下方，引导向下滚动翻页 */}
-          <div className={`scrollHint ${active === 0 ? "show" : ""}`} aria-hidden={active !== 0}>
-            <div className="scrollHintMouse"><i /></div>
-            <span className="scrollHintText">向下滚动 · 翻页浏览</span>
-            <span className="scrollHintArrow">⌄</span>
-          </div>
+          {/* 每页底部翻页提示：非末页翻下一页，末页回到顶部 */}
+          <button
+            type="button"
+            className={`scrollHint show ${active === scenes.length - 1 ? "top" : ""}`}
+            aria-label={active === scenes.length - 1 ? "回到顶部" : "向下滚动翻页"}
+            onClick={() => active === scenes.length - 1 ? jump(0) : jump(starts[Math.min(active + 1, starts.length - 1)])}
+          >
+            {active === scenes.length - 1 ? (
+              <>
+                <div className="scrollHintTop">↑</div>
+                <span className="scrollHintText">回到顶部</span>
+              </>
+            ) : (
+              <>
+                <div className="scrollHintMouse"><i /></div>
+                <span className="scrollHintText">向下滚动 · 点击翻页</span>
+                <span className="scrollHintArrow">⌄</span>
+              </>
+            )}
+          </button>
 
           <aside className="rail" aria-label={`当前场景：${scenes[active].nav}`}>
             <strong>{scenes[active].number}</strong>
@@ -529,7 +543,7 @@ export default function App() {
 
       <section className="mobileStory">
         {scenes.map((scene, i) => (
-          <article className="mobileScene" key={scene.id}>
+          <article className="mobileScene" data-mi={i} key={scene.id}>
             <img src={scene.still} alt={`${scene.nav}：${scene.title}`} />
             <div>
               <small>{scene.number} / {String(scenes.length).padStart(2, "0")} · {scene.eyebrow}</small>
@@ -553,6 +567,31 @@ export default function App() {
                   <button type="button" className="cta ghost" onClick={() => setAppQrOpen(true)}>体验优你家Plus ↗</button>
                 </div>
               )}
+
+              {/* 移动端每屏翻页提示：末页回到顶部 */}
+              <button
+                type="button"
+                className={`scrollHintMobile ${i === scenes.length - 1 ? "top" : ""}`}
+                aria-label={i === scenes.length - 1 ? "回到顶部" : "滚动到下一页"}
+                onClick={() =>
+                  i === scenes.length - 1
+                    ? window.scrollTo({ top: 0, behavior: "smooth" })
+                    : document.querySelector(`[data-mi="${i + 1}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+              >
+                {i === scenes.length - 1 ? (
+                  <>
+                    <div className="scrollHintTop">↑</div>
+                    <span className="scrollHintText">回到顶部</span>
+                  </>
+                ) : (
+                  <>
+                    <div className="scrollHintMouse"><i /></div>
+                    <span className="scrollHintText">向下滚动 · 点击翻页</span>
+                    <span className="scrollHintArrow">⌄</span>
+                  </>
+                )}
+              </button>
             </div>
           </article>
         ))}
